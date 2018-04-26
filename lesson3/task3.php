@@ -1,6 +1,6 @@
 
 <?
-/*$arr = [
+$arr = [
     "Ленинградская область" => [
         "Санкт-Петербург",
         "Всеволожск",
@@ -13,17 +13,20 @@
     ]
 ];
 
-print_r($arr);*/
+foreach ($arr as $key => $values) {
+    echo($key . ":<br>");
+    $c = count($values)-1;
+    foreach ($values as $inValues) {
+        if ($inValues != $values[$c]) {
+            echo($inValues . ", ");
+        }
+        else{
+            echo($inValues . "<br>");
+        }
+    }
+
+}
 
 
 
     
-
-$array = array(
-    1    => "a",
-    +"1"  => "b",
-    1.5  => "c",
-    true => "d",
-);
-print_r($array);
-?>
