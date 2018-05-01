@@ -16,7 +16,13 @@
 
 <body>
     <?
-    $fileNames = scandir("small");
+    require "config.php";
+    $sql = "SELECT path_s,name FROM images";
+    $res = mysqli_query($connect, $sql);
+    while($data = mysqli_fetch_assoc($res)){
+        echo ('<a href=#' . ' class="go" id="' . $data["name"] . '"><img src="' . $data["path_s"] . '" alt="' . $data["name"] . '"></a>');
+    }
+    /*$fileNames = scandir("small");
             if ($fileNames){
                 foreach ($fileNames as $fileName) {
                     if ($fileName != "." && $fileName != "..") {
@@ -26,7 +32,7 @@
             }
             else {
                 echo "no pictures to show";
-            }
+            }*/
     ?>
     <form action="uploads.php" method="post" enctype="multipart/form-data">
         Загрузите фото:

@@ -1,13 +1,14 @@
 
 <?php
-$target_dir = "big/";
-$target_dir_mini = "small/";
-$small_pic_width = 150;
+require "config.php";
+
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-$small_width = 150;
-$uploadOk = 1;
+$target_file_s = $target_dir_mini . basename($_FILES["fileToUpload"]["name"]);
+
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 print_r($_FILES);
+
+
 
 if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -52,6 +53,17 @@ if ($uploadOk == 0) {
         changeImage($small_height, $small_width, $target_file, $path, $type);
     } else {
         echo "Sorry, there was an error uploading your file.";
+    }
+    $sql = 'INSERT INTO images(path, path_s, name, size) values("' . $target_file . '", "' . $target_file_s . '", "' . $_FILES["fileToUpload"]["name"] . '", "' .  $_FILES["fileToUpload"]["size"] . '")';
+    $res = mysqli_query($connect,$sql);
+    if ($res) {
+        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded to database.";
+        header("Location: http://localhost:81/PHP1/PHP1_lessons/lesson5");
+        die();
+    }
+    else {
+        echo "Sorry, there was an error uploading your file to DB.";
+        
     }
 }
 
