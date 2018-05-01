@@ -15,6 +15,9 @@
 </head>
 
 <body>
+    
+    <div class="galleryBox">
+        <div class=galleryText><span>Gallery</span></div>
     <?
     require "config.php";
     $sql = "SELECT path_s,name FROM images";
@@ -34,6 +37,7 @@
                 echo "no pictures to show";
             }*/
     ?>
+    </div>
     <form action="uploads.php" method="post" enctype="multipart/form-data">
         Загрузите фото:
         <input type="file" name="fileToUpload" id="fileToUpload" multiple><br>

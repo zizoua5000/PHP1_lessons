@@ -43,3 +43,20 @@
 .pic {
     max-height : 740px;
 }
+
+.galleryText{
+    width: 100%;
+}
+
+.galleryBox {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    border: solid 2px black;
+    
+    
+}
+
+.go {
+    margin: 10px;
+}
