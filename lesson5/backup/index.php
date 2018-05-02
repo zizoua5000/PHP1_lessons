@@ -16,22 +16,27 @@
 
 <body>
     
-    <div class="galleryBoxMain">
+    <div class="galleryBox">
         <div class=galleryText><span>Gallery</span></div>
-            <div class="galleryBox">
-                <?
-                require "config.php";
-                $sql = "SELECT id,path_s,name,views FROM images ORDER BY views DESC";
-                $res = mysqli_query($connect, $sql);
-                while($data = mysqli_fetch_assoc($res)){
-                    echo ('<div class="picture ' . $data["id"] . '"><a href=#' . ' class="go" id="' . $data["name"] . '"><img src="' . $data["path_s"] . '" alt="' . $data["name"] . '"></a>');
-                    echo('<span>Views: ' . $data["views"] . '</span></div>');
-                
-                
+    <?
+    require "config.php";
+    $sql = "SELECT path_s,name FROM images";
+    $res = mysqli_query($connect, $sql);
+    while($data = mysqli_fetch_assoc($res)){
+        echo ('<a href=#' . ' class="go" id="' . $data["name"] . '"><img src="' . $data["path_s"] . '" alt="' . $data["name"] . '"></a>');
+    }
+    /*$fileNames = scandir("small");
+            if ($fileNames){
+                foreach ($fileNames as $fileName) {
+                    if ($fileName != "." && $fileName != "..") {
+                        echo ('<a href=#' . ' class="go" id="' . $fileName . '"><img src="small/' . $fileName . '" alt="' . $fileName . '"></a>');
+                    }
                 }
-                
-                ?>
-            </div>
+            }
+            else {
+                echo "no pictures to show";
+            }*/
+    ?>
     </div>
     <form action="uploads.php" method="post" enctype="multipart/form-data">
         Загрузите фото:

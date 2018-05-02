@@ -46,30 +46,17 @@
 
 .galleryText{
     width: 100%;
-    font-size: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.galleryBoxMain {
-    width: 100%;
-    border: solid 2px black;
 }
 
 .galleryBox {
     display: flex;
     width: 100%;
     justify-content: flex-start;
-
-}
-
-.picture {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    border: solid 2px black;
+    
     
 }
 
 .go {
-    margin: 10px 10px 0px 10px;
+    margin: 10px;
 }
