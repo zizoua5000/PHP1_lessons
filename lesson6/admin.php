@@ -39,10 +39,69 @@
     include "sidemenu.php";
     ?>
     
+    <section class="content">
+         
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>ADD/UPDATE Items</h2>
+
+                        <div class="body">
+                            <form id="form_advanced_validation" action="update.php" method="POST" novalidate="novalidate">
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" name="name" required aria-required="true">
+                                        <label class="form-label">Item Name</label>
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <textarea name="description" cols="30" rows="5" class="form-control no-resize" required aria-required="true"></textarea>
+                                        <label class="form-label">Short Description</label>
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <textarea name="description" cols="30" rows="5" class="form-control" required aria-required="true"></textarea>
+                                        <label class="form-label">Full Description</label>
+                                    </div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="number" class="form-control" name="number" required aria-required="true">
+                                        <label class="form-label">Quantity available in warehouse</label>
+                                    </div>
+                                    <div class="help-info">Numbers only</div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="number" class="form-control" name="number" required aria-required="true">
+                                        <label class="form-label">Price</label>
+                                    </div>
+                                    <div class="help-info">Numbers only</div>
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                        <input type="number" class="form-control" name="number">
+                                        <label class="form-label">Item ID</label>
+                                    </div>
+                                    <div class="help-info">Numbers only. If id already in DB then item info will be updated</div>
+                                </div>
+
+                            <button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     
 
     
-    
+
+   
     
 
     
@@ -63,10 +122,13 @@
 
     <!-- Waves Effect Plugin Js -->
     <script src="plugins/node-waves/waves.js"></script>
-
+    
+    <!-- Jquery Validation Plugin Css -->
+    <script src="plugins/jquery-validation/jquery.validate.js"></script>
+    
     <!-- Custom Js -->
     <script src="js/admin.js"></script>
-
+    <script src="js/pages/forms/form-validation.js"></script>
     <!-- Demo Js -->
     <script src="js/demo.js"></script>
 </body>
