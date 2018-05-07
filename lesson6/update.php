@@ -90,7 +90,7 @@ function files_function(){
         }
     }
     $data = ($error) ? array('error' => 'There was an error uploading your files') : array('files' => $files);
-echo json_encode($data);
+echo json_encode($_POST);
 }
 
 
