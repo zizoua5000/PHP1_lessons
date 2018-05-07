@@ -74,6 +74,8 @@ $("document").ready(function(){
             {
                 dataFiles.append(key, value);
             });
+                dataFiles.append("post", formValues);
+                
                 str = JSON.stringify(dataFiles);
                 str = JSON.stringify(dataFiles, null, 4); // (Optional) beautiful indented output.
                 console.log(str);
