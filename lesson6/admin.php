@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="form-group form-float">
                                     <div class="form-line">
-                                        <input type="number" class="form-control" name="item_ID">
+                                        <input type="number" class="form-control" name="item_ID" id="itemID">
                                         <label class="form-label">Item ID</label>
                                     </div>
                                     <div class="help-info">Numbers only. If id already in DB then item info will be updated</div>

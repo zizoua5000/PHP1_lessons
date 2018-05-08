@@ -32,29 +32,42 @@ function test_function(){
     }
             
     if (!$update) {
-        $sql = 'INSERT INTO items (`name`, `details_s`, `details`, `available`, `price`) VALUES (';
-        $c = count($return) - 2;
-        $i = 0;
-        foreach ($return as $value) {
-            $i++;
-            if ($c!=$i){
-                $sql .= '"' . $value . '", ';
+        if (!isset($_GET["id"])){
+            $date = date('Y-m-d H:i:s');
+            $sql = 'INSERT INTO items (modDate ,`name`, `details_s`, `details`, `available`, `price`) VALUES ("' . $date . '", ';
+            $c = count($return) - 2;
+            $i = 0;
+            foreach ($return as $value) {
+                $i++;
+                if ($c!=$i){
+                    $sql .= '"' . $value . '", ';
+                }
+               /* elseif ($c!=$i && is_numeric($value)){
+                    $sql .= $value . ', ';
+                }*/
+                else {
+                    $sql .=$value . ')';
+                    break;
+                }
             }
-           /* elseif ($c!=$i && is_numeric($value)){
-                $sql .= $value . ', ';
-            }*/
+
+            //echo($sql);
+    //      print_r(mysqli_query($connect, $sql));
+            if (mysqli_query($connect, $sql)) {
+                $result["success"] = 1;
+                $sql = "SELECT id, modDate FROM items ORDER BY modDate DESC LIMIT 1;";
+                $res = mysqli_query($connect, $sql);
+                $data = mysqli_fetch_assoc($res);
+                $result["lastID"] =$data["id"];
+            }
             else {
-                $sql .=$value . ')';
-                break;
+                $result["success"] = 0;
             }
-        }
-        echo($sql);
-      // print_r(mysqli_query($connect, $sql));
-        if (mysqli_query($connect, $sql)) {
-            $result = ["success" => 1];
+            $return["json"] = json_encode($result);
+           echo json_encode($result);
         }
         else {
-            $result = ["success" => 0];
+            
         }
     }
     
@@ -90,7 +103,8 @@ function files_function(){
         }
     }
     $data = ($error) ? array('error' => 'There was an error uploading your files') : array('files' => $files);
-echo json_encode($_POST);
+    print_r($_FILES);
+//echo json_encode($_POST);
 }
 
 

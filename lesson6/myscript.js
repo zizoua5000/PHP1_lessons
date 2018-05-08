@@ -18,21 +18,13 @@ $("document").ready(function(){
     
     
     $(".js-ajax-php-json").submit(function(event){
-//        var $inputs = $('.js-ajax-php-json:input');
         event.preventDefault();
          $('.js-ajax-php-json :input').each(function(){
-        
-            
-
+   
             var attr = $(this).attr('required');
-//            alert(attr+ " " + (this).val());
-
             if (typeof attr !== typeof undefined && attr !== false) {
-                
                 if ($.trim($(this).val()) === "") {
                     req = false;
-                    
-                    
                 }
             }
              console.log(req);
@@ -42,17 +34,11 @@ $("document").ready(function(){
         }
     });
       
-
-
-            
-                  
-   /*    function test(){
-           console.log("test ishleyir");
-       }*/
     
         function ajaxUpload(formValues) {
           
-            
+            var lastID;
+            var urlFile;
             var data = {
               "action": "submit"
             };
@@ -60,28 +46,32 @@ $("document").ready(function(){
             data = $(formValues).serialize() + "&" + $.param(data);
             $.ajax({
               type: "POST",
-              //dataType: "json",
+              dataType: "json",
               url: "update.php", //Relative or absolute path to response.php file
               data: data,
               success: function(data) {
+                lastID = data["lastID"]; 
+                urlFile = "update.php?id=" + lastID;
+                console.log(urlFile);
 
-                alert("Form submitted successfully.\nReturned json: " + data);
+                console.log("Form submitted successfully.\nReturned json: " + data["lastID"]);
+                ajaxUploadFiles(urlFile);
+                  
+           
+                
               }
             });
+        }
 
-            var dataFiles = new FormData();
-            $.each(files, function(key, value)
-            {
-                dataFiles.append(key, value);
-            });
-                dataFiles.append("post", formValues);
-                
-                str = JSON.stringify(dataFiles);
-                str = JSON.stringify(dataFiles, null, 4); // (Optional) beautiful indented output.
-                console.log(str);
-
-            $.ajax({
-                url: 'update.php',
+    function ajaxUploadFiles(urlFile) {
+        var dataFiles = new FormData();
+                    $.each(files, function(key, value)
+                    {
+                        dataFiles.append(key, value);
+                    });  
+                  
+                 $.ajax({
+                url: urlFile,
                 type: 'POST',
                 data: dataFiles,
                 cache: false,
@@ -108,9 +98,9 @@ $("document").ready(function(){
                     // STOP LOADING SPINNER
                 }
             });
+    }
           
-        
-  
-        }
+                               
+          
     
 });
