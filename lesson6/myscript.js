@@ -26,8 +26,7 @@ $("document").ready(function(){
                 if ($.trim($(this).val()) === "") {
                     req = false;
                 }
-            }
-             console.log(req);
+            }            
          });
         if (req) {
             ajaxUpload($(this));
@@ -38,20 +37,23 @@ $("document").ready(function(){
         function ajaxUpload(formValues) {
           
             var lastID;
+            var update;
             var urlFile;
             var data = {
               "action": "submit"
             };
-              console.log(1);
-            data = $(formValues).serialize() + "&" + $.param(data);
+             data = $(formValues).serialize() + "&" + $.param(data);
+            console.log(data);
+            
             $.ajax({
               type: "POST",
               dataType: "json",
               url: "update.php", //Relative or absolute path to response.php file
               data: data,
               success: function(data) {
-                lastID = data["lastID"]; 
-                urlFile = "update.php?id=" + lastID;
+                lastID = data["lastID"];
+                update = data["update"];
+                urlFile = "update.php?id=" + lastID + "&update=" + update;
                 console.log(urlFile);
 
                 console.log("Form submitted successfully.\nReturned json: " + data["lastID"]);
@@ -80,16 +82,7 @@ $("document").ready(function(){
                 contentType: false, // Set content type to false as jQuery will tell the server its a query string request
                 success: function(dataFiles, textStatus, jqXHR)
                 {
-                    if(typeof dataFiles.error === 'undefined')
-                    {
-                        // Success so call function to process the form
-                        console.log(dataFiles);
-                    }
-                    else
-                    {
-                        // Handle errors here
-                        console.log('ERRORS: ' + dataFiles.error);
-                    }
+                   console.log("Files function: " + dataFiles);
                 },
                 error: function(jqXHR, textStatus, errorThrown)
                 {

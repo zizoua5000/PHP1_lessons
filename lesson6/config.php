@@ -7,11 +7,11 @@ $db = "bookstore";
 $menuTable = "menu";
 $itemsTable = "items";
 
-/*$target_dir = "big/";
-$target_dir_mini = "small/";
+$target_dir = "images/big/";
+$target_dir_mini = "images/small/";
 $small_pic_width = 150;
 $small_width = 150;
-$uploadOk = 1;*/
+$uploadOk = 1;
 
 
 

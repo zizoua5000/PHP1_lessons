@@ -3,10 +3,10 @@ if (is_ajax()) {
   if (isset($_POST["action"]) && !empty($_POST["action"])) { //Checks if action value exists
     $action = $_POST["action"];
     switch($action) { //Switch case for value of action
-      case "submit": test_function(); break;
+      case "submit": update_function(); break;
     }
   }
-  else {
+  if (isset($_GET["id"]) && !empty($_GET["id"])){
       files_function();
   }
 }
@@ -16,7 +16,7 @@ function is_ajax() {
   return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
 }
 
-function test_function(){
+function update_function(){
     $return = $_POST;
     
     require "config.php";
@@ -31,7 +31,7 @@ function test_function(){
         }
     }
             
-    if (!$update) {
+    if (!$update) {  // create record
         if (!isset($_GET["id"])){
             $date = date('Y-m-d H:i:s');
             $sql = 'INSERT INTO items (modDate ,`name`, `details_s`, `details`, `available`, `price`) VALUES ("' . $date . '", ';
@@ -51,14 +51,13 @@ function test_function(){
                 }
             }
 
-            //echo($sql);
-    //      print_r(mysqli_query($connect, $sql));
             if (mysqli_query($connect, $sql)) {
                 $result["success"] = 1;
                 $sql = "SELECT id, modDate FROM items ORDER BY modDate DESC LIMIT 1;";
                 $res = mysqli_query($connect, $sql);
                 $data = mysqli_fetch_assoc($res);
                 $result["lastID"] =$data["id"];
+                $result["update"] = 0;
             }
             else {
                 $result["success"] = 0;
@@ -70,7 +69,24 @@ function test_function(){
             
         }
     }
-    
+    else { // Update record
+        if (!isset($_GET["id"])){
+            $date = date('Y-m-d H:i:s');
+            $sql = 'UPDATE items SET name="' . $return["name"] . '", details_s="' . $return["description_s"] . '", details="' . $return["description_f"] .
+                '", available="' . $return["warehouse"] . '", price="' . $return["price"] . '" WHERE id=' . $return["item_ID"];
+            
+            if (mysqli_query($connect, $sql)) {
+                $result["success"] = 2;                
+                $result["lastID"] = $return["item_ID"];
+                $result["update"] = 1;
+            }
+            else {
+                $result["success"] = 0;
+            }
+            $return["json"] = json_encode($result);
+           echo json_encode($result);
+        }
+    }
    /* $myfile = fopen("output.txt", "w") or die("Unable to open file!");
     fwrite($myfile, $return);
     fclose($myfile);*/
@@ -86,27 +102,32 @@ function test_function(){
   echo json_encode($result);*/
 }
 
-function files_function(){
-    $error = false;
-    $files = array();
-    
-    $uploaddir = 'images/';
-    foreach($_FILES as $file)
-    {
-        if(move_uploaded_file($file['tmp_name'], $uploaddir .basename($file['name'])))
-        {
-            $files[] = $uploaddir .$file['name'];
-        }
-        else
-        {
-            $error = true;
-        }
+function files_function(){ // update file in new record
+    if (isset($_GET["update"]) && $_GET["update"] == 1) {
+        $error = delete_files();
     }
-    $data = ($error) ? array('error' => 'There was an error uploading your files') : array('files' => $files);
-    print_r($_FILES);
+    
+    require "config.php";
+    require "uploads.php";
+    
+    print_r($error);
 //echo json_encode($_POST);
 }
 
+function delete_files(){
+    require "config.php";
+    $sql = 'SELECT pic_path, pic_path_s FROM items WHERE id=' . $_GET["id"];
+    $res = mysqli_query($connect, $sql);
+    $data = mysqli_fetch_assoc($res);
+    if (unlink($data["pic_path"]) && unlink($data["pic_path_s"])) {
+        $error[] = "files deleted";
+    }
+    else {
+        $error[] = "files not deleted";
+    }
+    return $error;
+        
+}
 
 
 ?>
