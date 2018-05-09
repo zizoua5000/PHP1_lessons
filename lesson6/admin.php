@@ -115,6 +115,7 @@
                 </div>
             </div>
         </div>
+        <? include "table.php"; ?>
     </section>
     
 
