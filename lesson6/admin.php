@@ -187,6 +187,7 @@
     
     <script src="js/custom-file-input.js"></script>
      <script src="myscript.js"></script>
+    <script src="tablesContent.js"></script>
 </body>
 
 </html>

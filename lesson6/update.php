@@ -131,7 +131,18 @@ function delete_files(){
 }
 
 function dataTableFunc() {
-    
+    require "config.php";
+    $sql = 'SELECT id, name, available, price, views from items';
+    $res = mysqli_query($connect, $sql);
+    $result = ["data"];
+    while ($data = mysqli_fetch_assoc($res)){
+        foreach ($data as $value){
+            $array1[] = $value;
+        }
+        $array1[] = '<a href=# class="edit">Edit</a>/<a href=# class="delete">Delete</a>';
+        $result[]= $array;
+        echo json_encode($result);
+    }
 }
 
 
