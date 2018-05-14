@@ -4,6 +4,7 @@ if (is_ajax()) {
     $action = $_POST["action"];
     switch($action) { //Switch case for value of action
       case "submit": update_function(); break;
+        case "dataTable": dataTableFunc(); break;
     }
   }
   if (isset($_GET["id"]) && !empty($_GET["id"])){
@@ -127,6 +128,10 @@ function delete_files(){
     }
     return $error;
         
+}
+
+function dataTableFunc() {
+    
 }
 
 

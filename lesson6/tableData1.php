@@ -24,12 +24,12 @@
                     <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>Available</th>
+                                <th>price</th>
+                                <th>Views</th>
+                                <th>Edit/Delete</th>
                             </tr>
                         </thead>                        
                         <tbody>

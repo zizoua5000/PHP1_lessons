@@ -1,7 +1,7 @@
 <?
 $server = "localhost";
 $login="root";
-$pass="";
+$pass="123456";
 $db = "bookstore";
 
 $menuTable = "menu";
