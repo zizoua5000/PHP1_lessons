@@ -1,13 +1,13 @@
 $("document").ready(function(){
 $('.dataTable').dataTable( {
-  "ajax": {
+  ajax: {
+    url: "update.json",
     type: "POST",
-    //dataType: "json",
-    "url": "update.json",
-    "data": "action=dataTable",
-    success: function(data) {
+//    dataType: "json",    
+    data: "action=dataTable",
+/*    success: function(data) {
                 console.log("superrr!!!"+data);
-  }
+  }*/
 }
 } );
 });

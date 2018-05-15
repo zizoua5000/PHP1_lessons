@@ -94,6 +94,20 @@ $("document").ready(function(){
     }
           
                                
-          
+/*    $.ajax({
+    url: "update.php",
+    type: "POST",
+    dataType: "json",    
+    data: "action=dataTable",
+    success: function(data) {
+                console.log(data);
+  },
+        error: function(jqXHR, textStatus, errorThrown)
+                {
+                    // Handle errors here
+                    console.log('ERRORS: ' + textStatus);
+                    // STOP LOADING SPINNER
+                }
+}); */     
     
 });
