@@ -108,6 +108,6 @@ $("document").ready(function(){
                     console.log('ERRORS: ' + textStatus);
                     // STOP LOADING SPINNER
                 }
-}); */     
+});*/      
     
 });

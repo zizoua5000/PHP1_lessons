@@ -10,6 +10,7 @@ if (is_ajax()) {
   if (isset($_GET["id"]) && !empty($_GET["id"])){
       files_function();
   }
+    dataTableFunc();
 }
 
 //Function to check if the request is an AJAX request
@@ -132,7 +133,7 @@ function delete_files(){
 
 function dataTableFunc() {
     require "config.php";
-    $sql = 'SELECT id, name, available, price, views from items';
+/*    $sql = 'SELECT id, name, available, price, views from items';
     $res = mysqli_query($connect, $sql);
 //    $result = ["data"];
     while ($data = mysqli_fetch_assoc($res)){
@@ -142,7 +143,46 @@ function dataTableFunc() {
         $array1[] = '<a href=# class="edit">Edit</a>/<a href=# class="delete">Delete</a>';
         $result["data"][]= $array1;
         $array1 = [];
-    }
+    }*/
+    
+    
+    // DB table to use
+$table = 'items';
+ 
+// Table's primary key
+$primaryKey = 'id';
+ 
+
+$columns = array(
+    array( 'db' => 'id', 'dt' => 0 ),
+    array( 'db' => 'name',  'dt' => 1 ),
+    array( 'db' => 'available',   'dt' => 2 ),
+    array( 'db' => 'price',     'dt' => 3 ),
+    array( 'db' => 'views',     'dt' => 4 ),
+    //array( 'db' => 'edit/delete',     'dt' => 5 ),
+   
+);
+ 
+// SQL server connection information
+$sql_details = array(
+    'user' => $login,
+    'pass' => $pass,
+    'db'   => $db,
+    'host' => $server,
+);
+ 
+ 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * If you just want to use the basic configuration for DataTables with PHP
+ * server-side, there is no need to edit below this line.
+ */
+ 
+require( 'ssp.class.php' );
+ 
+echo json_encode(
+    SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns )
+);
+    
     echo json_encode($result);
     
 }
